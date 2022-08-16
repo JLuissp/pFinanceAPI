@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Añadir transacción.</h1>
+    <div>
+        <form action="/api/add_transaction" method="post" onsubmit="">
+            <label for=""> Concepto:</label>
+            <input type = 'text' id="concept" name="concepto" value =""><br>
+
+
+                <label for="">Método de pago:</label><br>
+                <input type="radio" id="cash" name="payment-method" value=0>
+                <label for="cash">Efectivo</label><br>
+                <input type="radio" id="electronic" name="payment-method" value=1>
+                <label for="electronic">Electronico</label><br>
+
+                <label for="">Tipo de transacción:</label><br>
+                <input type="radio" id="income" name="transaction-type" value=1>
+                <label for="cash">Ingreso</label><br>
+                <input type="radio" id="outcome" name="transaction-type" value=0>
+                <label for="electronic">Egreso</label><br>
+
+            <label for="">Monto:</label>
+            <input type="text" id="amount" name="amount" value=0.00><br>
+            <input type="submit" value="enviar">
+        </form>
+
+    </div>
+</body>
+</html>

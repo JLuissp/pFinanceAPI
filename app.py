@@ -1,6 +1,6 @@
 from logging import exception
 from urllib import request
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from database.database import dataBase
 from sql_model import db, Transactions
 from datetime import datetime, date, timedelta, timezone
@@ -20,10 +20,29 @@ with app.app_context():
     db.create_all()
 
 
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return 'hello world'
+    return render_template('index.html')
 
+
+@app.route('/api/add_transaction', methods=['POST'])
+def addTransaction():
+    print(request.form)
+    try:
+        transaction_date = datetime.now(tz=timezone(-timedelta(hours=5)))#.strftime("%Y-%m-%d %H:%M:%S")
+        concept = request.form["concepto"]
+        payment_method = int(request.form['payment-method'])
+        transaction_type = int(request.form['transaction-type'])
+        amount = float(request.form['amount'])
+
+        single_transaction = Transactions(transaction_date, concept, payment_method, transaction_type, amount)
+
+        db.session.add(single_transaction)
+        db.session.commit()
+        return render_template('index.html')
+    except Exception:
+        exception('\n [SERVER] error in route /api/add_transaction')
+        return jsonify({'msg':'no fue posbible añadir la transacción.'})
 
 @app.route('/api/transactions', methods=['GET'])
 def getTransactionsBy():

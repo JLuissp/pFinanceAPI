@@ -1,0 +1,5 @@
+_test.sqlite3
+database/Transactions.sqlite3
+__pycache__/sql_model.cpython-39.pyc
+database/__pycache__/__init__.cpython-39.pyc
+database/__pycache__/database.cpython-39.pyc
