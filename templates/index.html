@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <title>Document</title>
 </head>
+
+<!--
 <body>
+    
     <h1>Añadir transacción.</h1>
     <div>
         <form action="/api/add_transaction" method="post" onsubmit="">
@@ -33,4 +39,47 @@
 
     </div>
 </body>
+-->
+
+<body>
+    <header>
+        <h1>Administrador de gastos</h1>
+    </header>
+    <form>
+        <input type="text" class="transaction-input" value="concepto">
+
+        <div class="transaction-options">
+            <label class="transaction-methods">
+                <input type="radio" id="cash" name="payment-method" class="transaction-input-method" value=0>
+                <i class="fa-regular fa-money-bill-1" for="cash"></i>
+            </label>
+            <label class="transaction-methods">
+                <input type="radio" id="electronic" name="payment-method" class="transaction-input-method" value=1>
+                <i class="fa-regular fa-credit-card" for="electronic"></i>
+            </label>
+            <br>
+            <input type="radio" id="income" name="transaction-type" class="transaction-input-type" value=1>
+            <i class="fa-solid fa-circle-plus" for="income"></i>
+
+            <input type="radio" id="outcome" name="transaction-type" class="transaction-input-type" value=0>
+            <i class="fa-solid fa-circle-minus" for autcome></i>
+        </div>
+        <br>
+        <input type="text" id="amount" name="amount" class="transaction-input-amount" value=0.00>
+
+        <button class="transaction-button" type="submit">
+            <i class="fas fa-plus-square"></i>
+        </button>
+    </form>
+
+    <div class="transaction-container">
+        <ul class="transaction-list">
+            <div class="transactions">
+            </div>
+        </ul>
+    </div>
+
+</body>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </html>
