@@ -8,13 +8,27 @@ const transactionAmout = document.querySelector(".transaction-input-amount");
 const transactionButton = document.querySelector(".transaction-button");
 const transactionList = document.querySelector(".transaction-list");
 const commitButton = document.querySelector(".submit-to-db-btn");
-var jsonItems = [];
 
 //event listeners
 transactionButton.addEventListener('click', addTransaction);
 transactionList.addEventListener('click',deleteSingleItem)
+commitButton.addEventListener('click', submitTransactions)
 
 //Functions
+
+function submitTransactions(e){
+
+    var jsonItems = [];
+    const transactionsJson = document.querySelectorAll(".transaction-json")
+    console.log(transactionsJson)
+    for (var i=0; i< transactionsJson.length; i++){
+        jsonItems.push(transactionsJson[i].value)
+    }
+
+    var jsonInput = document.querySelector(".final-json")
+    jsonInput.value = jsonItems
+    console.log(jsonInput.value)
+}
 
 
 function deleteSingleItem(e){
@@ -35,6 +49,7 @@ function addTransaction(e) {
     //create list
     if (transactionMethod[0].checked){
         const newTransaction = document.createElement("dl");
+
         newTransaction.innerHTML = '<i class="fa-regular fa-money-bill-1">&nbsp;&nbsp;'+transactionInput.value+'</i>';
         const newTransactionDescription = document.createElement("dd")
         if(transactionType[0].checked){
@@ -44,9 +59,14 @@ function addTransaction(e) {
             var payment_method = transactionMethod[0].value;
             var transaction_type=transactionType[0].value;
             var transaction_amount=transactionAmout.value;
+            
             var dictItems = '{"date": "null", "concept":"'+concepto+'", "pay_method":'+payment_method+', "transaction_type":'+transaction_type+', "amount":'+transaction_amount+'}-';
 
-            jsonItems.push(dictItems);
+            var hiddenJson = document.createElement("input");
+            hiddenJson.type = "hidden";
+            hiddenJson.className = "transaction-json";
+            hiddenJson.value = dictItems;
+
         }
         else if (transactionType[1].checked){
             newTransactionDescription.innerText = '-'+transactionAmout.value;
@@ -56,9 +76,13 @@ function addTransaction(e) {
             var transaction_amount='-'+transactionAmout.value;
             var dictItems = '{"date": "null", "concept":"'+concepto+'", "pay_method":'+payment_method+', "transaction_type":'+transaction_type+', "amount":'+transaction_amount+'}-';
 
-            jsonItems.push(dictItems);
+            var hiddenJson = document.createElement("input");
+            hiddenJson.type = "hidden";
+            hiddenJson.className = "transaction-json";
+            hiddenJson.value = dictItems;
         }
         newTransaction.classList.add("transaction-item");
+        newTransaction.appendChild(hiddenJson);
         newTransaction.appendChild(newTransactionDescription);
         transactionDiv.appendChild(newTransaction);
     }
@@ -75,8 +99,10 @@ function addTransaction(e) {
             var transaction_type=transactionType[0].value;
             var transaction_amount=transactionAmout.value;
             var dictItems = '{"date": "null", "concept":"'+concepto+'", "pay_method":'+payment_method+', "transaction_type":'+transaction_type+', "amount":'+transaction_amount+'}-';
-
-            jsonItems.push(dictItems);;
+            var hiddenJson = document.createElement("input");
+            hiddenJson.type = "hidden";
+            hiddenJson.className = "transaction-json";
+            hiddenJson.value = dictItems;
         }
         else if (transactionType[1].checked){
             newTransactionDescription.innerText = '-'+transactionAmout.value
@@ -86,11 +112,14 @@ function addTransaction(e) {
             var transaction_type=transactionType[1].value;
             var transaction_amount='-'+transactionAmout.value;
             var dictItems = '{"date": "null", "concept":"'+concepto+'", "pay_method":'+payment_method+', "transaction_type":'+transaction_type+', "amount":'+transaction_amount+'}-';
-
-            jsonItems.push(dictItems);
+            var hiddenJson = document.createElement("input");
+            hiddenJson.type = "hidden";
+            hiddenJson.className = "transaction-json";
+            hiddenJson.value = dictItems;
         }
 
         newTransaction.classList.add("transaction-item");
+        newTransaction.appendChild(hiddenJson);
         newTransaction.appendChild(newTransactionDescription);
         transactionDiv.appendChild(newTransaction);
     }
@@ -106,4 +135,7 @@ function addTransaction(e) {
     //clear transaction input
     transactionInput.value = ""
     transactionAmout.value = ""
+
+    const transactionsJson = document.querySelectorAll(".transaction-json")
+    console.log(transactionsJson)
 }

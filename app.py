@@ -32,16 +32,12 @@ def extract_dict(s) -> list:
             pass    
     return results
 
-@app.route('/',methods=['GET', 'POST'])
-def home():
-    return render_template('index.html')
 
-
-@app.route('/api/add_transaction', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def addTransaction():
     try:
         if request.method == 'POST':
-            json_items = request.form['transactions-json']
+            json_items = request.form['final-json']
             json_items = extract_dict(json_items)
             for item in json_items:
 
@@ -51,7 +47,7 @@ def addTransaction():
                 transaction_type = int(item['transaction_type'])
                 amount = float(item['amount'])
 
-                single_transaction = Transactions(*(item['date'], concept, payment_method, transaction_type, amount))
+                single_transaction = Transactions(item['date'], concept, payment_method, transaction_type, amount)
 
                 db.session.add(single_transaction)
             db.session.commit()
