@@ -4,7 +4,8 @@ from flask import Flask, request, jsonify, render_template
 from database.database import dataBase
 from sql_model import db, Transactions
 from datetime import datetime, date, timedelta, timezone
-
+import json
+import re
 PATH = 'database/pFinanceDB.sqlite3'
 
 _database = dataBase(PATH)
@@ -20,26 +21,42 @@ with app.app_context():
     db.create_all()
 
 
-@app.route('/')
+def extract_dict(s) -> list:
+    results = []
+    s_ = ' '.join(s.split('-,')).strip()
+    exp = re.compile(r'(\{.*?\})')
+    for i in exp.findall(s_):
+        try:
+            results.append(json.loads(i))        
+        except json.JSONDecodeError:
+            pass    
+    return results
+
+@app.route('/',methods=['GET', 'POST'])
 def home():
     return render_template('index.html')
 
 
 @app.route('/api/add_transaction', methods=['POST'])
 def addTransaction():
-    print(request.form)
     try:
-        transaction_date = datetime.now(tz=timezone(-timedelta(hours=5)))#.strftime("%Y-%m-%d %H:%M:%S")
-        concept = request.form["concepto"]
-        payment_method = int(request.form['payment-method'])
-        transaction_type = int(request.form['transaction-type'])
-        amount = float(request.form['amount'])
+        if request.method == 'POST':
+            json_items = request.form['transactions-json']
+            json_items = extract_dict(json_items)
+            for item in json_items:
 
-        single_transaction = Transactions(transaction_date, concept, payment_method, transaction_type, amount)
+                item['date'] = datetime.now(tz=timezone(-timedelta(hours=5)))#.strftime("%Y-%m-%d %H:%M:%S")
+                concept = item["concept"]
+                payment_method = int(item['pay_method'])
+                transaction_type = int(item['transaction_type'])
+                amount = float(item['amount'])
 
-        db.session.add(single_transaction)
-        db.session.commit()
+                single_transaction = Transactions(*(item['date'], concept, payment_method, transaction_type, amount))
+
+                db.session.add(single_transaction)
+            db.session.commit()
         return render_template('index.html')
+
     except Exception:
         exception('\n [SERVER] error in route /api/add_transaction')
         return jsonify({'msg':'no fue posbible añadir la transacción.'})

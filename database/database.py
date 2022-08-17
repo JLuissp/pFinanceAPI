@@ -52,5 +52,5 @@ if __name__ == '__main__':
     PATH = 'database/Transactions.sqlite3'
 
     #datetime.now(tz=timezone(-timedelta(hours=5))).strftime("%Y-%m-%d %H:%M:%S")
-    dataBase.create_db()
+    dataBase(PATH).create_db()
     print('done')

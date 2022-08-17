@@ -10,66 +10,39 @@
     <title>Document</title>
 </head>
 
-<!--
-<body>
-    
-    <h1>Añadir transacción.</h1>
-    <div>
-        <form action="/api/add_transaction" method="post" onsubmit="">
-            <label for=""> Concepto:</label>
-            <input type = 'text' id="concept" name="concepto" value =""><br>
-
-
-                <label for="">Método de pago:</label><br>
-                <input type="radio" id="cash" name="payment-method" value=0>
-                <label for="cash">Efectivo</label><br>
-                <input type="radio" id="electronic" name="payment-method" value=1>
-                <label for="electronic">Electronico</label><br>
-
-                <label for="">Tipo de transacción:</label><br>
-                <input type="radio" id="income" name="transaction-type" value=1>
-                <label for="cash">Ingreso</label><br>
-                <input type="radio" id="outcome" name="transaction-type" value=0>
-                <label for="electronic">Egreso</label><br>
-
-            <label for="">Monto:</label>
-            <input type="text" id="amount" name="amount" value=0.00><br>
-            <input type="submit" value="enviar">
-        </form>
-
-    </div>
-</body>
--->
 
 <body>
     <header>
         <h1>Administrador de gastos</h1>
     </header>
-    <form>
-        <input type="text" class="transaction-input" value="concepto">
+    <form action="api/add_transaction" method="post" >
+        <label>Concepto:</label>
+        <input type="text" name="concepto" class="transaction-input">
 
         <div class="transaction-options">
-            <label class="transaction-methods">
-                <input type="radio" id="cash" name="payment-method" class="transaction-input-method" value=0>
-                <i class="fa-regular fa-money-bill-1" for="cash"></i>
-            </label>
-            <label class="transaction-methods">
-                <input type="radio" id="electronic" name="payment-method" class="transaction-input-method" value=1>
-                <i class="fa-regular fa-credit-card" for="electronic"></i>
-            </label>
+            <input type="radio" id="cash" name="payment-method" class="transaction-input-method" checked="checked" value=0>
+            <i class="fa-regular fa-money-bill-1" for="cash"></i>
+
+            <input type="radio" id="electronic" name="payment-method" class="transaction-input-method" value=1>
+            <i class="fa-regular fa-credit-card" for="electronic"></i>
             <br>
             <input type="radio" id="income" name="transaction-type" class="transaction-input-type" value=1>
             <i class="fa-solid fa-circle-plus" for="income"></i>
 
-            <input type="radio" id="outcome" name="transaction-type" class="transaction-input-type" value=0>
+            <input type="radio" id="outcome" name="transaction-type" class="transaction-input-type" checked="checked" value=0>
             <i class="fa-solid fa-circle-minus" for autcome></i>
         </div>
-        <br>
-        <input type="text" id="amount" name="amount" class="transaction-input-amount" value=0.00>
-
-        <button class="transaction-button" type="submit">
-            <i class="fas fa-plus-square"></i>
-        </button>
+        <label>Monto:</label>
+        <input type="text" id="amount" name="amount" class="transaction-input-amount" >
+        <div class="table-control">
+            <button class="transaction-button" type="submit">
+                <i class="fas fa-plus-square"></i>
+            </button>
+            <button class="submit-to-db-btn" type="submit">
+                <i class="fa-solid fa-database"></i>
+            </button>
+        </div>
+        <input type="hidden" name="transactions-json" class="transactions-json" value="">
     </form>
 
     <div class="transaction-container">

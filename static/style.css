@@ -17,27 +17,28 @@ header,form{
     display: grid;
     justify-content: center;
     align-content: center;
-}
-form input, form button{
     padding: 0.5rem;
+}
+form input{
+    padding: 0.5rem;
+    margin: 0.1rem;
     font-size: 1.5rem;
-    border: none;
-    background: white;
+    border-color: black;
+    background: none;
 }
 
-form button{
+form button {
     color: #d88771;
-    background: white;
+    background: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 0.6rem;
+    font-size: 1.5rem;
 }
 form button:hover{
     background-color: #d88771;
     color: white;
 }
-div.transaction-methods {
-    margin-top: 0em;
-  }
 
 .transaction-container{
     display: flex;
@@ -45,20 +46,25 @@ div.transaction-methods {
     align-items: center;
 }
 .transaction-list{
-    min-width: 30%;
+    min-width: 50%;
+    max-width: 70%;
     list-style: none;
 }
 .transaction{
-    margin: 0.5rem;
-    background: white;
-    color: black;
-    font-size: 1.5rem;
+    margin: 1rem;
+    background: none;
+    border-color: red;
+    font-size: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .transaction li{
     flex: 1;
+    border-color: black;
+}
+dd {
+    align-items: right;
 }
 .delete-btn {
     background: #ff6f47;
@@ -69,36 +75,27 @@ div.transaction-methods {
     font-size: 1rem;
 }
 
-
+div.transaction-options{
+    align-items: center;
+    justify-content: space-between;
+}
+div.table-control{
+    display: flex;
+    margin-inline: 70%;
+}
 input[type="radio"] {
-    appearance: none;
     background-color: whitesmoke;
-    margin: 0.5em;
+    margin: 1em;
     font: inherit;
     color: currentColor;
-
-    border: 0em solid currentColor;
-    border-radius: 100%;
-    transform: translateY(0.650em);
-    justify-content: right;
-    place-content: right;
-  }
-input[type="radio"]::before {
-    content: "";
-    width: 0em;
-    height: 0em;
-    border-radius: 100%;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 0.5em 0.5em var(--form-control-color);
-    background-color: CanvasText;
+    font-size: 10px;
+    border: 1em solid currentColor;
+    border-radius: 50%;
+    justify-content: space-between;
+    place-content: center;
   }
 
-input[type="radio"]:checked::before {
-    transform: scale(0.5);
-  }
 
-  input[type="radio"]:focus {
-    outline: max(2px, 0.15em) solid currentColor;
-    outline-offset: max(1px, 0em);
-  }
+.fa-solid{
+    pointer-events: none;
+}
