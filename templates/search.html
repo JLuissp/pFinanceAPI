@@ -59,14 +59,36 @@
             </div>
         </div>
     </form>
+    {%if n!=0%}
+    <div class="stats">
+        <label>Estadisticas:</label>
+        <label>Balance: ${{ balance }}</label>
+        <label>Ingreso Promedio: ${{mean_income}}</label>
+        <label>Gasto Promedio: ${{mean_outcome}}</label>
 
+    </div>
     <div class="transaction-container">
         <ul class="transaction-list">
             <div class="transactions">
+                    {%for i in range(0, n)%}
+                        <div class="transaction">
+                            {%if t_list[i].pay_method==0%}
+                            <dl class="transaction-item">
+                                <i class="fa-regular fa-money-bill-1">&nbsp;&nbsp; {{ t_list[i].concept }}</i>
+                                <dd> {{ t_list[i].amount }}</dd><dd> {{t_list[i].date}}</dd>
+                            </dl>
+                            {%else%}
+                            <dl class="transaction-item">
+                                <i class="fa-regular fa-credit-card">&nbsp;&nbsp; {{ t_list[i].concept }}</i>
+                                <dd> {{ t_list[i].amount }}</dd> <dd> {{t_list[i].date}}</dd>
+                            </dl>
+                            {%endif%}
+                        </div>
+                    {%endfor%}
             </div>
         </ul>
     </div>
-
+    {%endif%}
 </body>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

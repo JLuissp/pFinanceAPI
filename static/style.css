@@ -46,8 +46,8 @@ form button:hover{
     align-items: center;
 }
 .transaction-list{
-    min-width: 50%;
-    max-width: 70%;
+    min-width: 30%;
+    max-width: 60%;
     list-style: none;
 }
 .transaction{
@@ -81,7 +81,23 @@ div.transaction-options{
 }
 div.table-control{
     display: flex;
-    margin-inline: 70%;
+    margin-inline: 72%;
+}
+div.search-control{
+    display: flex;
+    margin-top: -152px;
+    margin-right: 42px;
+    justify-content: space-between;
+}
+div.input-date{
+    display: -ms-grid;
+    justify-items: end;
+}
+div.stats{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-top: -152px;
 }
 input[type="radio"] {
     background-color: whitesmoke;
@@ -94,7 +110,11 @@ input[type="radio"] {
     justify-content: space-between;
     place-content: center;
   }
-
+input[type="date"]{
+    width: 80px;
+    height: 20px;
+    font-size: 11px;
+}
 
 .fa-solid{
     pointer-events: none;

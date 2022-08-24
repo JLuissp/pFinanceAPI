@@ -9,6 +9,9 @@ const transactionButton = document.querySelector(".transaction-button");
 const transactionList = document.querySelector(".transaction-list");
 const commitButton = document.querySelector(".submit-to-db-btn");
 
+const textDate = document.querySelector(".text-date")
+const searchButton = document.querySelector(".search-btn")
+
 //event listeners
 transactionButton.addEventListener('click', addTransaction);
 transactionList.addEventListener('click',deleteSingleItem)
@@ -16,18 +19,28 @@ commitButton.addEventListener('click', submitTransactions)
 
 //Functions
 
+// function queryByDate(e){
+
+//     const transactionDiv = document.createElement("div");
+//     transactionDiv.classList.add("transaction");
+
+//     //API request
+
+
+
+// }
+
 function submitTransactions(e){
 
     var jsonItems = [];
     const transactionsJson = document.querySelectorAll(".transaction-json")
-    console.log(transactionsJson)
+
     for (var i=0; i< transactionsJson.length; i++){
         jsonItems.push(transactionsJson[i].value)
     }
 
     var jsonInput = document.querySelector(".final-json")
     jsonInput.value = jsonItems
-    console.log(jsonInput.value)
 }
 
 
@@ -36,7 +49,6 @@ function deleteSingleItem(e){
     //delete transaction
     if(item.classList[0]=='delete-btn'){
         item.parentElement.remove();
-        console.log(transactionList);
     }
 }
 
@@ -46,12 +58,16 @@ function addTransaction(e) {
     //transaction DIV
     const transactionDiv = document.createElement("div");
     transactionDiv.classList.add("transaction");
+
+    if(transactionAmout==''){
+        return;
+    }
     //create list
     if (transactionMethod[0].checked){
         const newTransaction = document.createElement("dl");
 
         newTransaction.innerHTML = '<i class="fa-regular fa-money-bill-1">&nbsp;&nbsp;'+transactionInput.value+'</i>';
-        const newTransactionDescription = document.createElement("dd")
+        const newTransactionDescription = document.createElement("dd");
         if(transactionType[0].checked){
             newTransactionDescription.innerText = transactionAmout.value;
 
@@ -137,5 +153,4 @@ function addTransaction(e) {
     transactionAmout.value = ""
 
     const transactionsJson = document.querySelectorAll(".transaction-json")
-    console.log(transactionsJson)
 }
